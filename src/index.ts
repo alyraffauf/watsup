@@ -26,6 +26,8 @@ async function checkStatuses(items: { name: string; url: string }[]) {
 }
 
 const server = serve({
+  hostname: "0.0.0.0",
+  port: 3000,
   routes: {
     // Serve index.html for all unmatched routes.
     "/*": index,
@@ -37,9 +39,21 @@ const server = serve({
       },
     },
 
-    "/api/websites": {
+    "/api/weather": {
       async GET(req) {
-        return Response.json(await checkStatuses(websites));
+        const url = new URL(req.url);
+        const lat = url.searchParams.get("lat");
+        const lon = url.searchParams.get("lon");
+
+        const pointsResponse = await fetch(
+          `https://api.weather.gov/points/${lat},${lon}`,
+        );
+
+        const pointsData = await pointsResponse.json();
+        const forecastUrl = pointsData.properties.forecast;
+        const forecastResponse = await fetch(forecastUrl);
+        const forecastData = await forecastResponse.json();
+        return Response.json(forecastData.properties.periods[0]);
       },
     },
 
