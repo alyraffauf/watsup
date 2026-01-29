@@ -1,0 +1,78 @@
+import { serve } from "bun";
+import index from "./index.html";
+import { privateApps } from "./data/privateApps";
+import { websites } from "./data/websites";
+
+async function checkStatuses(items: { name: string; url: string }[]) {
+  const results = await Promise.all(
+    items.map(async (item) => {
+      try {
+        const response = await fetch(item.url, {
+          method: "HEAD",
+          signal: AbortSignal.timeout(3000),
+        });
+        return { name: item.name, online: response.status < 500 };
+      } catch {
+        return { name: item.name, online: false };
+      }
+    }),
+  );
+
+  const statuses: Record<string, boolean> = {};
+  for (const result of results) {
+    statuses[result.name] = result.online;
+  }
+  return statuses;
+}
+
+const server = serve({
+  routes: {
+    // Serve index.html for all unmatched routes.
+    "/*": index,
+
+    "/api/check": {
+      async POST(req) {
+        const items = await req.json();
+        return Response.json(await checkStatuses(items));
+      },
+    },
+
+    "/api/websites": {
+      async GET(req) {
+        return Response.json(await checkStatuses(websites));
+      },
+    },
+
+    "/api/hello": {
+      async GET(req) {
+        return Response.json({
+          message: "Hello, world!",
+          method: "GET",
+        });
+      },
+      async PUT(req) {
+        return Response.json({
+          message: "Hello, world!",
+          method: "PUT",
+        });
+      },
+    },
+
+    "/api/hello/:name": async (req) => {
+      const name = req.params.name;
+      return Response.json({
+        message: `Hello, ${name}!`,
+      });
+    },
+  },
+
+  development: process.env.NODE_ENV !== "production" && {
+    // Enable browser hot reloading in development
+    hmr: true,
+
+    // Echo console logs from the browser to the server
+    console: true,
+  },
+});
+
+console.log(`🚀 Server running at ${server.url}`);
