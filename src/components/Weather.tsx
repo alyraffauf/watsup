@@ -38,6 +38,8 @@ export function Weather() {
     temperature: number;
     temperatureUnit: string;
     shortForecast: string;
+    city: string;
+    state: string;
   } | null>(null);
 
   const [error, setError] = useState<string | null>(null);
@@ -74,6 +76,9 @@ export function Weather() {
             <span className="text-zinc-500">{weather.temperatureUnit}</span>
           </div>
           <div className="text-zinc-400">{weather.shortForecast}</div>
+          <div className="text-zinc-400">
+            {weather.city}, {weather.state}
+          </div>
         </div>
       </div>
     </div>

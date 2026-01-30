@@ -95,13 +95,25 @@ const server = serve({
 
         const pointsResponse = await fetch(
           `https://api.weather.gov/points/${lat},${lon}`,
+          {
+            headers: {
+              "User-Agent": "(watsup, aly@aly.codes)",
+            },
+          },
         );
 
         const pointsData = await pointsResponse.json();
         const forecastUrl = pointsData.properties.forecast;
         const forecastResponse = await fetch(forecastUrl);
         const forecastData = await forecastResponse.json();
-        return Response.json(forecastData.properties.periods[0]);
+
+        const location = pointsData.properties.relativeLocation.properties;
+
+        return Response.json({
+          ...forecastData.properties.periods[0],
+          city: location.city,
+          state: location.state,
+        });
       },
     },
 
