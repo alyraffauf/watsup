@@ -3,6 +3,8 @@ import index from "./index.html";
 import { privateApps } from "./data/privateApps";
 import { websites } from "./data/websites";
 
+let hnCache: { stories: any[]; fetchedAt: number } | null = null;
+
 async function checkStatuses(items: { name: string; url: string }[]) {
   const results = await Promise.all(
     items.map(async (item) => {
@@ -36,6 +38,32 @@ const server = serve({
       async POST(req) {
         const items = await req.json();
         return Response.json(await checkStatuses(items));
+      },
+    },
+
+    "/api/hackernews": {
+      async GET(req) {
+        if (hnCache && Date.now() - hnCache.fetchedAt < 5 * 60 * 1000) {
+          return Response.json(hnCache.stories);
+        }
+
+        const ids = await fetch(
+          "https://hacker-news.firebaseio.com/v0/topstories.json",
+        ).then((res) => res.json());
+
+        const stories = await Promise.all(
+          ids
+            .slice(0, 5)
+            .map((id: number) =>
+              fetch(
+                `https://hacker-news.firebaseio.com/v0/item/${id}.json`,
+              ).then((res) => res.json()),
+            ),
+        );
+
+        hnCache = { stories, fetchedAt: Date.now() };
+
+        return Response.json(stories);
       },
     },
 

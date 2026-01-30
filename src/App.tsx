@@ -1,5 +1,6 @@
 import Layout from "./Layout";
 import ServiceGrid from "./components/ServiceGrid";
+import { HackerNews } from "./components/HackerNews";
 import { Weather } from "./components/Weather";
 import { apps } from "./data/apps";
 import { privateApps } from "./data/privateApps";
@@ -13,6 +14,13 @@ export function App() {
           {" "}
           <h2 className="text-2xl font-semibold text-zinc-400 mb-4">Weather</h2>
           <Weather />
+        </div>
+
+        <div>
+          <h2 className="text-2xl font-semibold text-zinc-400 mb-4">
+            Hacker News
+          </h2>
+          <HackerNews />
         </div>
       </div>
       <h2 className="text-2xl font-semibold text-zinc-400 mt-8 mb-4">

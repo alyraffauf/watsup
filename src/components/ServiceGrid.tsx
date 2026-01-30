@@ -55,7 +55,7 @@ export default function ServiceGrid({
             {service.icon && (
               <img src={service.icon} alt="" className="w-6 h-6 shrink-0" />
             )}
-            <h3 className="text-lg font-semibold flex-1 truncate">
+            <h3 className="text-md font-semibold flex-1 truncate">
               {service.name}
             </h3>
             <span className="shrink-0">
