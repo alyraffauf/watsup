@@ -1,14 +1,5 @@
 import { useState, useEffect } from "react";
 
-function timeAgo(timestamp: number): string {
-  const seconds = Math.floor(Date.now() / 1000 - timestamp);
-
-  if (seconds < 60) return "1m";
-  if (seconds < 3600) return `${Math.floor(seconds / 60)}m`;
-  if (seconds < 86400) return `${Math.floor(seconds / 3600)}h`;
-  return `${Math.floor(seconds / 86400)}d`;
-}
-
 export function HackerNews() {
   const [stories, setStories] = useState<any[]>([]);
 

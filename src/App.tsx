@@ -2,6 +2,7 @@ import Layout from "./Layout";
 import ServiceGrid from "./components/ServiceGrid";
 import { HackerNews } from "./components/HackerNews";
 import { Weather } from "./components/Weather";
+import { SearchBar } from "./components/SearchBar.tsx";
 import { apps } from "./data/apps";
 import { privateApps } from "./data/privateApps";
 import { websites } from "./data/websites";
@@ -9,6 +10,10 @@ import { websites } from "./data/websites";
 export function App() {
   return (
     <Layout>
+      <div className="mb-8">
+        <SearchBar />
+      </div>
+
       <div className="grid gap-4 md:grid-cols-2">
         <div>
           {" "}
