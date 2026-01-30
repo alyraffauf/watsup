@@ -22,7 +22,7 @@ export function SearchBar() {
         }
       }}
     >
-      <div className="flex gap-2">
+      <div className="flex flex-col md:flex-row gap-2">
         <select
           value={engine.name}
           onChange={(e) =>
@@ -45,7 +45,7 @@ export function SearchBar() {
           value={query}
           onChange={(e) => setQuery(e.target.value)}
           placeholder="Search..."
-          className="flex-1 px-3 py-2 bg-white/10 border border-white/20 rounded-lg text-white placeholder-white/50 focus:outline-none focus:border-white/40"
+          className="flex-1 min-w-0 px-3 py-2 bg-white/10 border border-white/20 rounded-lg text-white placeholder-white/50 focus:outline-none focus:border-white/40"
         />
       </div>
     </form>

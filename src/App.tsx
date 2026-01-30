@@ -16,7 +16,7 @@ export function App() {
           <Weather />
         </div>
 
-        <div className="col-span-3">
+        <div className="md:col-span-3">
           <SearchBar />
         </div>
       </div>

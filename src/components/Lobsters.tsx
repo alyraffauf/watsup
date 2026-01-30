@@ -30,7 +30,7 @@ export function Lobsters() {
               href={story.url}
               target="_blank"
               rel="noopener noreferrer"
-              className="text-zinc-200 hover:text-white hover:underline truncate"
+              className="text-zinc-200 hover:text-white hover:underline"
             >
               {story.title}
             </a>
