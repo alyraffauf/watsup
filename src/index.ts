@@ -4,6 +4,7 @@ import { privateApps } from "./data/privateApps";
 import { websites } from "./data/websites";
 
 let hnCache: { stories: any[]; fetchedAt: number } | null = null;
+let lobstersCache: { stories: any[]; fetchedAt: number } | null = null;
 
 async function checkStatuses(items: { name: string; url: string }[]) {
   const results = await Promise.all(
@@ -62,6 +63,25 @@ const server = serve({
         );
 
         hnCache = { stories, fetchedAt: Date.now() };
+
+        return Response.json(stories);
+      },
+    },
+
+    "/api/lobsters": {
+      async GET(req) {
+        if (
+          lobstersCache &&
+          Date.now() - lobstersCache.fetchedAt < 5 * 60 * 1000
+        ) {
+          return Response.json(lobstersCache.stories);
+        }
+
+        const stories = await fetch("https://lobste.rs/hottest.json")
+          .then((res) => res.json())
+          .then((data) => data.slice(0, 5));
+
+        lobstersCache = { stories, fetchedAt: Date.now() };
 
         return Response.json(stories);
       },

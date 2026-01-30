@@ -1,0 +1,42 @@
+import { useState, useEffect } from "react";
+
+export function Lobsters() {
+  const [stories, setStories] = useState<any[]>([]);
+
+  const [error, setError] = useState<string | null>(null);
+
+  useEffect(() => {
+    const fetchLobsters = () => {
+      fetch(`/api/lobsters`)
+        .then((response) => response.json())
+        .then((data) => setStories(data));
+    };
+
+    fetchLobsters();
+  }, []);
+
+  if (stories.length == 0) {
+    return <div>Loading stories...</div>;
+  }
+
+  return (
+    <div className="p-4 rounded-xl bg-white/5 border border-rose-400/20">
+      <ul className="space-y-2">
+        {stories.map((story) => (
+          <li key={story.short_id} className="flex gap-3 text-sm">
+            <span className="text-zinc-500 w-8 shrink-0">{story.score}↑</span>
+
+            <a
+              href={story.url}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="text-zinc-200 hover:text-white hover:underline truncate"
+            >
+              {story.title}
+            </a>
+          </li>
+        ))}
+      </ul>
+    </div>
+  );
+}
