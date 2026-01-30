@@ -17,26 +17,26 @@ export function App() {
       <div className="grid gap-4 md:grid-cols-2">
         <div>
           {" "}
-          <h2 className="text-2xl font-semibold text-zinc-400 mb-4">Weather</h2>
+          <h2 className="text-2xl font-semibold text-white/70 mb-4">Weather</h2>
           <Weather />
         </div>
 
         <div>
-          <h2 className="text-2xl font-semibold text-zinc-400 mb-4">
+          <h2 className="text-2xl font-semibold text-white/70 mb-4">
             Hacker News
           </h2>
           <HackerNews />
         </div>
       </div>
-      <h2 className="text-2xl font-semibold text-zinc-400 mt-8 mb-4">
+      <h2 className="text-2xl font-semibold text-white/70 mt-8 mb-4">
         Websites
       </h2>
       <ServiceGrid services={websites} columns={2} />
-      <h2 className="text-2xl font-semibold text-zinc-400 mt-8 mb-4">
+      <h2 className="text-2xl font-semibold text-white/70 mt-8 mb-4">
         Public Apps
       </h2>
       <ServiceGrid services={apps} columns={4} />
-      <h2 className="text-2xl font-semibold text-zinc-400 mt-8 mb-4">
+      <h2 className="text-2xl font-semibold text-white/70 mt-8 mb-4">
         Tailnet Apps
       </h2>
       <ServiceGrid services={privateApps} columns={4} />

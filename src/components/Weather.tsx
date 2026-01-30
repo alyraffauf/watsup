@@ -65,7 +65,7 @@ export function Weather() {
   }
 
   return (
-    <div className="p-4 bg-zinc-800 border border-zinc-700 rounded-lg">
+    <div className="p-4 rounded-xl bg-white/5 border border-rose-400/20">
       <div className="flex items-center gap-4">
         {getWeatherIcon(weather.shortForecast, "w-12 h-12 text-zinc-300")}
         <div>

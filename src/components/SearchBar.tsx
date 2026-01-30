@@ -14,7 +14,7 @@ export function SearchBar() {
 
   return (
     <form
-      className="p-4 bg-zinc-800 border border-zinc-700 rounded-lg"
+      className="p-4 rounded-xl bg-white/5 border border-rose-400/20"
       onSubmit={(e) => {
         e.preventDefault();
         if (query.trim()) {
@@ -28,10 +28,14 @@ export function SearchBar() {
           onChange={(e) =>
             setEngine(engines.find((eng) => eng.name === e.target.value)!)
           }
-          className="px-3 py-2 bg-zinc-900 border border-zinc-600 rounded text-white focus:outline-none focus:border-zinc-500"
+          className="px-3 py-2 bg-white/10 border border-white/20 rounded-lg text-white focus:outline-none focus:border-white/40"
         >
           {engines.map((eng) => (
-            <option key={eng.name} value={eng.name}>
+            <option
+              key={eng.name}
+              value={eng.name}
+              className="bg-zinc-900 text-white"
+            >
               {eng.name}
             </option>
           ))}
@@ -41,7 +45,7 @@ export function SearchBar() {
           value={query}
           onChange={(e) => setQuery(e.target.value)}
           placeholder="Search..."
-          className="flex-1 px-3 py-2 bg-zinc-900 border border-zinc-600 rounded text-white placeholder-zinc-500 focus:outline-none focus:border-zinc-500"
+          className="flex-1 px-3 py-2 bg-white/10 border border-white/20 rounded-lg text-white placeholder-white/50 focus:outline-none focus:border-white/40"
         />
       </div>
     </form>
