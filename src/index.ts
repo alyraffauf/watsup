@@ -93,27 +93,34 @@ const server = serve({
         const lat = url.searchParams.get("lat");
         const lon = url.searchParams.get("lon");
 
-        const pointsResponse = await fetch(
-          `https://api.weather.gov/points/${lat},${lon}`,
-          {
-            headers: {
-              "User-Agent": "(watsup, aly@aly.codes)",
+        try {
+          const pointsResponse = await fetch(
+            `https://api.weather.gov/points/${lat},${lon}`,
+            {
+              headers: {
+                "User-Agent": "(watsup, aly@aly.codes)",
+              },
             },
-          },
-        );
+          );
 
-        const pointsData = await pointsResponse.json();
-        const forecastUrl = pointsData.properties.forecast;
-        const forecastResponse = await fetch(forecastUrl);
-        const forecastData = await forecastResponse.json();
+          const pointsData = await pointsResponse.json();
+          const forecastUrl = pointsData.properties.forecast;
+          const forecastResponse = await fetch(forecastUrl);
+          const forecastData = await forecastResponse.json();
 
-        const location = pointsData.properties.relativeLocation.properties;
+          const location = pointsData.properties.relativeLocation.properties;
 
-        return Response.json({
-          ...forecastData.properties.periods[0],
-          city: location.city,
-          state: location.state,
-        });
+          return Response.json({
+            ...forecastData.properties.periods[0],
+            city: location.city,
+            state: location.state,
+          });
+        } catch (e) {
+          return Response.json(
+            { error: "Weather unavailable" },
+            { status: 502 },
+          );
+        }
       },
     },
 
