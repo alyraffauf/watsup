@@ -103,11 +103,37 @@ const server = serve({
             },
           );
 
-          const pointsData = await pointsResponse.json();
-          const forecastUrl = pointsData.properties.forecast;
-          const forecastResponse = await fetch(forecastUrl);
-          const forecastData = await forecastResponse.json();
+          if (!pointsResponse.ok) {
+            return Response.json(
+              { error: "Weather only available for US locations" },
+              { status: 400 },
+            );
+          }
 
+          const pointsData = await pointsResponse.json();
+          const forecastUrl = pointsData.properties?.forecast;
+
+          if (!forecastUrl) {
+            return Response.json(
+              { error: "Weather only available for US locations" },
+              { status: 400 },
+            );
+          }
+
+          const forecastResponse = await fetch(forecastUrl, {
+            headers: {
+              "User-Agent": "(watsup, aly@aly.codes)",
+            },
+          });
+
+          if (!forecastResponse.ok) {
+            return Response.json(
+              { error: "Weather forecast unavailable" },
+              { status: 502 },
+            );
+          }
+
+          const forecastData = await forecastResponse.json();
           const location = pointsData.properties.relativeLocation.properties;
 
           return Response.json({

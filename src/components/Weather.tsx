@@ -48,7 +48,14 @@ export function Weather() {
     const fetchWeather = (lat: number, lon: number) => {
       fetch(`/api/weather?lat=${lat}&lon=${lon}`)
         .then((response) => response.json())
-        .then((data) => setWeather(data));
+        .then((data) => {
+          if (data.error) {
+            setError(data.error);
+          } else {
+            setWeather(data);
+          }
+        })
+        .catch(() => setError("Failed to load weather"));
     };
 
     navigator.geolocation.getCurrentPosition(
@@ -61,6 +68,14 @@ export function Weather() {
       },
     );
   }, []);
+
+  if (error) {
+    return (
+      <div className="p-4 rounded-xl bg-white/5 border border-rose-400/20 text-zinc-400">
+        {error}
+      </div>
+    );
+  }
 
   if (!weather) {
     return <div>Loading weather...</div>;
