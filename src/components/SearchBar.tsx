@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useRef, useState } from "react";
 
 const engines = [
   { name: "Google", url: "https://www.google.com/search?q=" },
@@ -7,10 +7,15 @@ const engines = [
 ];
 
 export function SearchBar() {
+  const inputRef = useRef<HTMLInputElement>(null);
   const [query, setQuery] = useState("");
   const [engine, setEngine] = useState(
     engines.find((e) => e.name === "DuckDuckGo")!,
   );
+
+  useEffect(() => {
+    inputRef.current?.focus();
+  }, []);
 
   return (
     <form
@@ -42,6 +47,7 @@ export function SearchBar() {
         </select>
         <input
           type="text"
+          ref={inputRef}
           value={query}
           onChange={(e) => setQuery(e.target.value)}
           placeholder="Search..."
