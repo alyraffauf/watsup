@@ -46,7 +46,7 @@ export function Weather() {
 
   useEffect(() => {
     const fetchWeather = (lat: number, lon: number) => {
-      fetch(`/api/weather?lat=${lat}&lon=${lon}`)
+      fetch(`/api/weather`)
         .then((response) => response.json())
         .then((data) => {
           if (data.error) {

@@ -90,8 +90,8 @@ const server = serve({
     "/api/weather": {
       async GET(req) {
         const url = new URL(req.url);
-        const lat = url.searchParams.get("lat");
-        const lon = url.searchParams.get("lon");
+        const lat = req.headers.get("cf-iplatitude") ?? "33.749";
+        const lon = req.headers.get("cf-iplongitude") ?? "-84.388";
 
         try {
           const pointsResponse = await fetch(
