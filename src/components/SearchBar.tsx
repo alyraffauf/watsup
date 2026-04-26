@@ -19,7 +19,7 @@ export function SearchBar() {
 
   return (
     <form
-      className="h-full flex-1 p-4 rounded-xl bg-white/5 border border-rose-400/20 flex flex-col justify-center"
+      className="card h-full flex-1 p-4 flex flex-col justify-center"
       onSubmit={(e) => {
         e.preventDefault();
         if (query.trim()) {

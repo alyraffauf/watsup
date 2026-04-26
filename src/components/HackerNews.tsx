@@ -20,7 +20,7 @@ export function HackerNews() {
   }
 
   return (
-    <div className="p-4 rounded-xl bg-white/5 border border-rose-400/20">
+    <div className="card p-4">
       <ul className="space-y-2">
         {stories.map((story) => (
           <li key={story.id} className="flex gap-3 text-sm">

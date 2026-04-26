@@ -49,7 +49,7 @@ export default function ServiceGrid({
         <a
           key={service.name}
           href={service.url}
-          className="block p-4 rounded-xl bg-white/5 border border-rose-400/20 hover:border-rose-400/40 hover:scale-105 transition-all"
+          className="card block p-4 hover:bg-white/[0.07] hover:border-white/20 hover:-translate-y-0.5 transition-all"
         >
           <div className="flex items-center gap-3">
             {service.icon && (
