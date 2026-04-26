@@ -45,28 +45,16 @@ export function Weather() {
   const [error, setError] = useState<string | null>(null);
 
   useEffect(() => {
-    const fetchWeather = (lat: number, lon: number) => {
-      fetch(`/api/weather`)
-        .then((response) => response.json())
-        .then((data) => {
-          if (data.error) {
-            setError(data.error);
-          } else {
-            setWeather(data);
-          }
-        })
-        .catch(() => setError("Failed to load weather"));
-    };
-
-    navigator.geolocation.getCurrentPosition(
-      (position) => {
-        fetchWeather(position.coords.latitude, position.coords.longitude);
-      },
-      () => {
-        // Fallback to Atlanta
-        fetchWeather(33.749, -84.388);
-      },
-    );
+    fetch(`/api/weather`)
+      .then((response) => response.json())
+      .then((data) => {
+        if (data.error) {
+          setError(data.error);
+        } else {
+          setWeather(data);
+        }
+      })
+      .catch(() => setError("Failed to load weather"));
   }, []);
 
   if (error) {
