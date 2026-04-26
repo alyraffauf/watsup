@@ -23,28 +23,28 @@ export function App() {
 
       <div className="grid gap-4 md:grid-cols-2">
         <div>
-          <h2 className="text-2xl font-semibold text-white/70 mb-4">
+          <h2 className="section-heading mb-3">
             Lobsters
           </h2>
           <Lobsters />
         </div>
 
         <div>
-          <h2 className="text-2xl font-semibold text-white/70 mb-4">
+          <h2 className="section-heading mb-3">
             Hacker News
           </h2>
           <HackerNews />
         </div>
       </div>
-      <h2 className="text-2xl font-semibold text-white/70 mt-8 mb-4">
+      <h2 className="section-heading mt-10 mb-3">
         Websites
       </h2>
       <ServiceGrid services={websites} columns={2} />
-      <h2 className="text-2xl font-semibold text-white/70 mt-8 mb-4">
+      <h2 className="section-heading mt-10 mb-3">
         Public Apps
       </h2>
       <ServiceGrid services={apps} columns={4} />
-      <h2 className="text-2xl font-semibold text-white/70 mt-8 mb-4">
+      <h2 className="section-heading mt-10 mb-3">
         Tailnet Apps
       </h2>
       <ServiceGrid services={privateApps} columns={4} />
