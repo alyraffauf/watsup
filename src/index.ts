@@ -191,7 +191,7 @@ const server = serve({
           }
 
           const pointsData = await pointsResponse.json();
-          const forecastUrl = pointsData.properties?.forecast;
+          const forecastUrl = pointsData.properties?.forecastHourly;
 
           if (!forecastUrl) {
             return Response.json(
