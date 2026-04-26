@@ -6,6 +6,86 @@ import { websites } from "./data/websites";
 let hnCache: { stories: any[]; fetchedAt: number } | null = null;
 let lobstersCache: { stories: any[]; fetchedAt: number } | null = null;
 
+type Favicon = { body: ArrayBuffer; contentType: string };
+type CachedFavicon = Favicon & { fetchedAt: number };
+
+const faviconCache = new Map<string, CachedFavicon>();
+const FAVICON_CACHE_MS = 24 * 60 * 60 * 1000;
+
+const NAMED_HTML_ENTITIES: Record<string, string> = {
+  lt: "<",
+  gt: ">",
+  amp: "&",
+  quot: '"',
+  apos: "'",
+};
+
+function decodeHtmlEntities(text: string): string {
+  return text.replace(/&(#x[0-9a-f]+|#\d+|\w+);/gi, (full, code) => {
+    if (code.startsWith("#x"))
+      return String.fromCodePoint(parseInt(code.slice(2), 16));
+    if (code.startsWith("#"))
+      return String.fromCodePoint(parseInt(code.slice(1), 10));
+    return NAMED_HTML_ENTITIES[code] ?? full;
+  });
+}
+
+async function fetchIcon(iconUrl: string): Promise<Favicon | null> {
+  try {
+    const response = await fetch(iconUrl, {
+      signal: AbortSignal.timeout(5000),
+    });
+    if (!response.ok) return null;
+
+    // For data: URIs the mime type lives in the URL itself (e.g. `data:image/svg+xml,...`).
+    // Bun's fetch doesn't always copy it onto the response, so pull it out manually.
+    const dataUriMime = iconUrl.match(/^data:([^;,]+)/)?.[1];
+    const contentType =
+      dataUriMime ?? response.headers.get("content-type") ?? "image/x-icon";
+
+    return { body: await response.arrayBuffer(), contentType };
+  } catch {
+    return null;
+  }
+}
+
+async function getFavicon(siteOrigin: string): Promise<Favicon | null> {
+  const cached = faviconCache.get(siteOrigin);
+  if (cached && Date.now() - cached.fetchedAt < FAVICON_CACHE_MS) {
+    return cached;
+  }
+
+  const freshIcon = await findFavicon(siteOrigin);
+  if (!freshIcon) return null;
+
+  faviconCache.set(siteOrigin, { ...freshIcon, fetchedAt: Date.now() });
+  return freshIcon;
+}
+
+async function findFavicon(siteOrigin: string): Promise<Favicon | null> {
+  try {
+    const homepage = await fetch(siteOrigin, {
+      signal: AbortSignal.timeout(5000),
+      headers: { "User-Agent": "Mozilla/5.0 watsup-favicon-fetcher" },
+    }).then((response) => response.text());
+
+    const iconLinkPattern = /<link[^>]+rel=["'][^"']*icon[^"']*["'][^>]*>/gi;
+    for (const linkTag of homepage.match(iconLinkPattern) ?? []) {
+      const hrefMatch = linkTag.match(/href=["']([^"']+)["']/i);
+      if (!hrefMatch) continue;
+
+      const href = decodeHtmlEntities(hrefMatch[1]);
+      const iconUrl = new URL(href, siteOrigin).toString();
+      const icon = await fetchIcon(iconUrl);
+      if (icon) return icon;
+    }
+  } catch {
+    // Homepage fetch or parsing failed; fall through to the conventional path.
+  }
+
+  return fetchIcon(new URL("/favicon.ico", siteOrigin).toString());
+}
+
 async function checkStatuses(items: { name: string; url: string }[]) {
   const results = await Promise.all(
     items.map(async (item) => {
@@ -147,6 +227,33 @@ const server = serve({
             { status: 502 },
           );
         }
+      },
+    },
+
+    "/api/favicon": {
+      async GET(req) {
+        const urlParam = new URL(req.url).searchParams.get("url");
+        if (!urlParam) return new Response("Missing url", { status: 400 });
+
+        let siteUrl: URL;
+        try {
+          siteUrl = new URL(urlParam);
+        } catch {
+          return new Response("Invalid url", { status: 400 });
+        }
+        if (siteUrl.protocol !== "http:" && siteUrl.protocol !== "https:") {
+          return new Response("Invalid scheme", { status: 400 });
+        }
+
+        const icon = await getFavicon(siteUrl.origin);
+        if (!icon) return new Response("Not found", { status: 404 });
+
+        return new Response(icon.body, {
+          headers: {
+            "Content-Type": icon.contentType,
+            "Cache-Control": "public, max-age=86400",
+          },
+        });
       },
     },
 

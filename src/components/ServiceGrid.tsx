@@ -45,33 +45,42 @@ export default function ServiceGrid({
 
   return (
     <div className={`grid gap-4 ${gridCols[columns]}`}>
-      {services.map((service) => (
-        <a
-          key={service.name}
-          href={service.url}
-          className="card block p-4 hover:bg-white/[0.07] hover:border-white/20 hover:-translate-y-0.5 transition-all"
-        >
-          <div className="flex items-center gap-3">
-            {service.icon && (
-              <img src={service.icon} alt="" className="w-6 h-6 shrink-0" />
-            )}
-            <h3 className="text-md font-semibold flex-1 truncate">
-              {service.name}
-            </h3>
-            <span className="shrink-0">
-              {statuses[service.name] == null && (
-                <Circle className="text-zinc-500" />
-              )}
-              {statuses[service.name] === true && (
-                <CircleCheck className="text-emerald-400" />
-              )}
-              {statuses[service.name] === false && (
-                <CircleX className="text-rose-400" />
-              )}
-            </span>
-          </div>
-        </a>
-      ))}
+      {services.map((service) => {
+        const iconUrl =
+          service.icon ?? `/api/favicon?url=${encodeURIComponent(service.url)}`;
+        return (
+          <a
+            key={service.name}
+            href={service.url}
+            className="card block p-4 hover:bg-white/[0.07] hover:border-white/20 hover:-translate-y-0.5 transition-all"
+          >
+            <div className="flex items-center gap-3">
+              <img
+                src={iconUrl}
+                alt=""
+                className="w-6 h-6 shrink-0"
+                onError={(e) => {
+                  e.currentTarget.style.display = "none";
+                }}
+              />
+              <h3 className="text-md font-semibold flex-1 truncate">
+                {service.name}
+              </h3>
+              <span className="shrink-0">
+                {statuses[service.name] == null && (
+                  <Circle className="text-zinc-500" />
+                )}
+                {statuses[service.name] === true && (
+                  <CircleCheck className="text-emerald-400" />
+                )}
+                {statuses[service.name] === false && (
+                  <CircleX className="text-rose-400" />
+                )}
+              </span>
+            </div>
+          </a>
+        );
+      })}
     </div>
   );
 }
