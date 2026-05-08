@@ -1,7 +1,9 @@
 import { serve } from "bun";
-import index from "./index.html";
+import { join } from "path";
 import { privateApps } from "./data/privateApps";
 import { websites } from "./data/websites";
+
+const distDir = join(import.meta.dir, "..", "dist");
 
 let hnCache: { stories: any[]; fetchedAt: number } | null = null;
 let lobstersCache: { stories: any[]; fetchedAt: number } | null = null;
@@ -112,8 +114,15 @@ const server = serve({
   hostname: "0.0.0.0",
   port: 3000,
   routes: {
-    // Serve index.html for all unmatched routes.
-    "/*": index,
+    // Serve static assets from dist/, with index.html fallback for SPA routes.
+    "/*": async (req) => {
+      const url = new URL(req.url);
+      const candidate = Bun.file(
+        join(distDir, url.pathname === "/" ? "index.html" : url.pathname),
+      );
+      if (await candidate.exists()) return new Response(candidate);
+      return new Response(Bun.file(join(distDir, "index.html")));
+    },
 
     "/api/check": {
       async POST(req) {
