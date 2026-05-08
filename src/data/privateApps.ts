@@ -55,10 +55,5 @@ export const privateApps: Service[] = [
     name: "Grafana",
     url: "https://grafana.narwhal-snapper.ts.net/",
     icon: "https://cdn.jsdelivr.net/gh/walkxcode/dashboard-icons/png/grafana.png",
-  },
-  {
-    name: "Uptime Kuma",
-    url: "https://uptime-kuma.narwhal-snapper.ts.net/",
-    icon: "https://cdn.jsdelivr.net/gh/walkxcode/dashboard-icons/png/uptime-kuma.png",
-  },
+  }
 ];

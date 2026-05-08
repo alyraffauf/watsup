@@ -36,4 +36,9 @@ export const apps: Service[] = [
     url: "https://vault.cute.haus/",
     icon: "https://cdn.jsdelivr.net/gh/walkxcode/dashboard-icons/png/vaultwarden.png",
   },
+  {
+    name: "Uptime Kuma",
+    url: "https://kuma.cute.haus/",
+    icon: "https://cdn.jsdelivr.net/gh/walkxcode/dashboard-icons/png/uptime-kuma.png",
+  },
 ];
