@@ -2,6 +2,11 @@ import type { Service } from "../types";
 
 export const apps: Service[] = [
   {
+    name: "Pocket ID",
+    url: "https://id.cute.haus/",
+    icon: "https://cdn.jsdelivr.net/gh/walkxcode/dashboard-icons/png/pocket-id.png",
+  },
+  {
     name: "Plex",
     url: "https://plex.cute.haus/",
     icon: "https://cdn.jsdelivr.net/gh/walkxcode/dashboard-icons/png/plex.png",
