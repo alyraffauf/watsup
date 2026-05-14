@@ -44,7 +44,7 @@ export const apps: Service[] = [
   },
   {
     name: "aly.social",
-    url: "https://aly.social/",
+    url: "https://pds.cute.haus",
     icon: "https://cdn.jsdelivr.net/gh/walkxcode/dashboard-icons/png/bluesky.png",
   },
   {
