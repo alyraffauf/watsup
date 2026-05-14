@@ -33,6 +33,11 @@ export const apps: Service[] = [
     icon: "https://cdn.jsdelivr.net/gh/walkxcode/dashboard-icons/png/navidrome.png",
   },
   {
+    name: "Paperless",
+    url: "https://paperless.cute.haus",
+    icon: "https://cdn.jsdelivr.net/gh/walkxcode/dashboard-icons/png/paperless-ngx.png",
+  },
+  {
     name: "Forĝejo",
     url: "https://git.aly.codes/",
     icon: "https://cdn.jsdelivr.net/gh/walkxcode/dashboard-icons/png/forgejo.png",
