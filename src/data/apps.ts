@@ -27,6 +27,11 @@ export const apps: Service[] = [
     icon: "https://cdn.jsdelivr.net/gh/walkxcode/dashboard-icons/png/immich.png",
   },
   {
+    name: "Navidrome",
+    url: "https://navidrome.cute.haus/",
+    icon: "https://cdn.jsdelivr.net/gh/walkxcode/dashboard-icons/png/navidrome.png",
+  },
+  {
     name: "Forĝejo",
     url: "https://git.aly.codes/",
     icon: "https://cdn.jsdelivr.net/gh/walkxcode/dashboard-icons/png/forgejo.png",

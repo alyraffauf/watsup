@@ -12,11 +12,6 @@ export const privateApps: Service[] = [
     icon: "https://cdn.jsdelivr.net/gh/walkxcode/dashboard-icons/png/photoprism.png",
   },
   {
-    name: "Navidrome",
-    url: "https://navidrome.narwhal-snapper.ts.net/",
-    icon: "https://cdn.jsdelivr.net/gh/walkxcode/dashboard-icons/png/navidrome.png",
-  },
-  {
     name: "Sonarr",
     url: "https://sonarr.narwhal-snapper.ts.net/",
     icon: "https://cdn.jsdelivr.net/gh/walkxcode/dashboard-icons/png/sonarr.png",
@@ -55,5 +50,5 @@ export const privateApps: Service[] = [
     name: "Grafana",
     url: "https://grafana.narwhal-snapper.ts.net/",
     icon: "https://cdn.jsdelivr.net/gh/walkxcode/dashboard-icons/png/grafana.png",
-  }
+  },
 ];
