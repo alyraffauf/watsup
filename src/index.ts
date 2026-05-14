@@ -88,11 +88,13 @@ async function findFavicon(siteOrigin: string): Promise<Favicon | null> {
   return fetchIcon(new URL("/favicon.ico", siteOrigin).toString());
 }
 
-async function checkStatuses(items: { name: string; url: string }[]) {
+async function checkStatuses(
+  items: { name: string; url: string; healthUrl?: string }[],
+) {
   const results = await Promise.all(
     items.map(async (item) => {
       try {
-        const response = await fetch(item.url, {
+        const response = await fetch(item.healthUrl ?? item.url, {
           method: "HEAD",
           signal: AbortSignal.timeout(3000),
         });
