@@ -6,6 +6,7 @@ export const apps: Service[] = [
     url: "https://id.cute.haus/",
     icon: "https://cdn.jsdelivr.net/gh/walkxcode/dashboard-icons/png/pocket-id.png",
   },
+  { name: "atbbs", url: "https://atbbs.xyz/" },
   {
     name: "Plex",
     url: "https://plex.cute.haus/",
