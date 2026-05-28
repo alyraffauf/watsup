@@ -7,11 +7,6 @@ export const privateApps: Service[] = [
     icon: "https://cdn.jsdelivr.net/gh/walkxcode/dashboard-icons/png/jellyfin.png",
   },
   {
-    name: "Photoprism",
-    url: "https://photoprism.narwhal-snapper.ts.net/",
-    icon: "https://cdn.jsdelivr.net/gh/walkxcode/dashboard-icons/png/photoprism.png",
-  },
-  {
     name: "Sonarr",
     url: "https://sonarr.narwhal-snapper.ts.net/",
     icon: "https://cdn.jsdelivr.net/gh/walkxcode/dashboard-icons/png/sonarr.png",
