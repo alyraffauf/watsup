@@ -3,4 +3,5 @@ export type Service = {
   url: string;
   icon?: string;
   healthUrl?: string;
+  goodStatuses?: number[];
 };

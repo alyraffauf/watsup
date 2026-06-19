@@ -30,7 +30,6 @@ export const apps: Service[] = [
   {
     name: "Navidrome",
     url: "https://navidrome.cute.haus",
-    healthUrl: "https://navidrome.narwhal-snapper.ts.net",
     icon: "https://cdn.jsdelivr.net/gh/walkxcode/dashboard-icons/png/navidrome.png",
   },
   {

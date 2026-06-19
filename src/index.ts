@@ -87,16 +87,20 @@ async function findFavicon(siteOrigin: string): Promise<Favicon | null> {
 }
 
 async function checkStatuses(
-  items: { name: string; url: string; healthUrl?: string }[],
+  items: { name: string; url: string; healthUrl?: string; goodStatuses?: number[] }[],
 ) {
   const results = await Promise.all(
     items.map(async (item) => {
       try {
         const response = await fetch(item.healthUrl ?? item.url, {
-          method: "HEAD",
+          method: "GET",
           signal: AbortSignal.timeout(3000),
         });
-        return { name: item.name, online: response.status < 500 };
+        const status = response.status;
+        const online = "goodStatuses" in item
+          ? item.goodStatuses!.includes(status)
+          : status < 500;
+        return { name: item.name, online };
       } catch {
         return { name: item.name, online: false };
       }
