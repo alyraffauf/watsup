@@ -3,7 +3,7 @@ import type { Service } from "../types";
 export const privateApps: Service[] = [
   {
     name: "Jellyfin",
-    url: "https://jellyfin.narwhal-snapper.ts.net/",
+    url: "https://jellyfin.cute.haus",
     icon: "https://cdn.jsdelivr.net/gh/walkxcode/dashboard-icons/png/jellyfin.png",
   },
   {
