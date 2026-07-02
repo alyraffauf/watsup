@@ -6,7 +6,11 @@ export const apps: Service[] = [
     url: "https://id.cute.haus/",
     icon: "https://cdn.jsdelivr.net/gh/walkxcode/dashboard-icons/png/pocket-id.png",
   },
-  { name: "atbbs", url: "https://atbbs.xyz/" },
+  {
+    name: "Jellyfin",
+    url: "https://jellyfin.cute.haus",
+    icon: "https://cdn.jsdelivr.net/gh/walkxcode/dashboard-icons/png/jellyfin.png",
+  },
   {
     name: "Plex",
     url: "https://plex.cute.haus/",
@@ -41,11 +45,6 @@ export const apps: Service[] = [
     name: "Forĝejo",
     url: "https://git.aly.codes/",
     icon: "https://cdn.jsdelivr.net/gh/walkxcode/dashboard-icons/png/forgejo.png",
-  },
-  {
-    name: "aly.social",
-    url: "https://pds.cute.haus",
-    icon: "https://cdn.jsdelivr.net/gh/walkxcode/dashboard-icons/png/bluesky.png",
   },
   {
     name: "Vaultwarden",

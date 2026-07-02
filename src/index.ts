@@ -1,7 +1,5 @@
 import { serve } from "bun";
 import index from "./index.html";
-import { privateApps } from "./data/privateApps";
-import { websites } from "./data/websites";
 
 let hnCache: { stories: any[]; fetchedAt: number } | null = null;
 let lobstersCache: { stories: any[]; fetchedAt: number } | null = null;
@@ -87,7 +85,12 @@ async function findFavicon(siteOrigin: string): Promise<Favicon | null> {
 }
 
 async function checkStatuses(
-  items: { name: string; url: string; healthUrl?: string; goodStatuses?: number[] }[],
+  items: {
+    name: string;
+    url: string;
+    healthUrl?: string;
+    goodStatuses?: number[];
+  }[],
 ) {
   const results = await Promise.all(
     items.map(async (item) => {
@@ -97,9 +100,10 @@ async function checkStatuses(
           signal: AbortSignal.timeout(3000),
         });
         const status = response.status;
-        const online = "goodStatuses" in item
-          ? item.goodStatuses!.includes(status)
-          : status < 500;
+        const online =
+          "goodStatuses" in item
+            ? item.goodStatuses!.includes(status)
+            : status < 500;
         return { name: item.name, online };
       } catch {
         return { name: item.name, online: false };

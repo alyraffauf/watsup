@@ -5,6 +5,7 @@ import { Lobsters } from "./components/Lobsters";
 import { Weather } from "./components/Weather";
 import { SearchBar } from "./components/SearchBar.tsx";
 import { apps } from "./data/apps";
+import { communityInfra } from "./data/communityInfra";
 import { privateApps } from "./data/privateApps";
 import { websites } from "./data/websites";
 
@@ -33,12 +34,14 @@ export function App() {
         </div>
       </div>
 
+      <h2 className="section-heading mt-10 mb-3">Community Apps+Infra</h2>
+      <ServiceGrid services={communityInfra} columns={4} />
+      <h2 className="section-heading mt-10 mb-3">Webpages</h2>
+      <ServiceGrid services={websites} columns={3} />
       <h2 className="section-heading mt-10 mb-3">Apps</h2>
       <ServiceGrid services={apps} columns={4} />
-      <h2 className="section-heading mt-10 mb-3">Private Apps</h2>
+      <h2 className="section-heading mt-10 mb-3">Homelab</h2>
       <ServiceGrid services={privateApps} columns={4} />
-      <h2 className="section-heading mt-10 mb-3">Webpages</h2>
-      <ServiceGrid services={websites} columns={2} />
     </Layout>
   );
 }
