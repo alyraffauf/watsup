@@ -8,8 +8,8 @@ In addition to some pleasantries (top 5 stories on Hacker News, weather, search)
 
 ## configuration
 
-The dashboard is configured at runtime from JSON. The bundled
-[`config/default.json`](config/default.json) reproduces the default dashboard,
+The dashboard is configured at runtime from TOML. The bundled
+[`config/default.toml`](config/default.toml) reproduces the default dashboard,
 but the container can use any mounted file by setting `WATSUP_CONFIG_PATH`:
 
 ```yaml
@@ -19,59 +19,54 @@ services:
     ports:
       - "3000:3000"
     environment:
-      WATSUP_CONFIG_PATH: /run/configs/watsup.json
+      WATSUP_CONFIG_PATH: /run/configs/watsup.toml
     configs:
       - source: watsup-dashboard
-        target: /run/configs/watsup.json
+        target: /run/configs/watsup.toml
 
 configs:
   watsup-dashboard:
-    file: ./watsup.json
+    file: ./watsup.toml
 ```
 
 The config contains an ordered list of sections. Add as many `services` and
 `widgets` sections as needed:
 
-```json
-{
-  "title": "Home",
-  "sections": [
-    {
-      "type": "widgets",
-      "columns": 4,
-      "widgets": [
-        { "type": "weather" },
-        { "type": "search", "span": 3 }
-      ]
-    },
-    {
-      "type": "services",
-      "title": "Public services",
-      "columns": 3,
-      "refreshInterval": 20000,
-      "services": [
-        {
-          "name": "Example",
-          "url": "https://example.com",
-          "healthUrl": "https://example.com/health",
-          "goodStatuses": [200, 204]
-        }
-      ]
-    },
-    {
-      "type": "services",
-      "title": "Internal services",
-      "columns": 4,
-      "services": [
-        {
-          "name": "Grafana",
-          "url": "https://grafana.example.com",
-          "icon": "https://example.com/grafana.png"
-        }
-      ]
-    }
-  ]
-}
+```toml
+title = "Home"
+
+[[sections]]
+type = "widgets"
+columns = 4
+
+[[sections.widgets]]
+type = "weather"
+
+[[sections.widgets]]
+type = "search"
+span = 3
+
+[[sections]]
+type = "services"
+title = "Public services"
+columns = 3
+refreshInterval = 20000
+
+[[sections.services]]
+name = "Example"
+url = "https://example.com"
+healthUrl = "https://example.com/health"
+goodStatuses = [200, 204]
+
+[[sections]]
+type = "services"
+title = "Internal services"
+columns = 4
+
+[[sections.services]]
+name = "Grafana"
+url = "https://grafana.example.com"
+icon = "https://example.com/grafana.png"
 ```
 
 `columns` and widget `span` accept values from 1 through 4. Available widget

@@ -1,0 +1,169 @@
+title = "watsup"
+
+[[sections]]
+type = "widgets"
+columns = 4
+
+[[sections.widgets]]
+type = "weather"
+
+[[sections.widgets]]
+type = "search"
+span = 3
+
+[[sections]]
+type = "widgets"
+columns = 2
+
+[[sections.widgets]]
+type = "lobsters"
+title = "Lobsters"
+
+[[sections.widgets]]
+type = "hacker-news"
+title = "Hacker News"
+
+[[sections]]
+type = "services"
+title = "Community Apps+Infra"
+columns = 4
+
+[[sections.services]]
+name = "atbbs"
+url = "https://atbbs.xyz/"
+
+[[sections.services]]
+name = "morsels.blue"
+url = "https://morsels.blue/"
+
+[[sections.services]]
+name = "aly.social"
+url = "https://pds.cute.haus"
+icon = "https://cdn.jsdelivr.net/gh/walkxcode/dashboard-icons/png/bluesky.png"
+
+[[sections.services]]
+name = "slingshot"
+url = "https://slingshot.cute.haus"
+icon = "https://cdn.jsdelivr.net/gh/walkxcode/dashboard-icons/png/bluesky.png"
+
+[[sections]]
+type = "services"
+title = "Webpages"
+columns = 3
+
+[[sections.services]]
+name = "Aly Raffauf"
+url = "https://aly.codes/"
+
+[[sections.services]]
+name = "Switchyard"
+url = "https://switchyard.aly.codes/"
+
+[[sections.services]]
+name = "Morgan Tamayo"
+url = "https://morgantamayo.com/"
+
+[[sections]]
+type = "services"
+title = "Apps"
+columns = 4
+
+[[sections.services]]
+name = "Pocket ID"
+url = "https://id.cute.haus/"
+icon = "https://cdn.jsdelivr.net/gh/walkxcode/dashboard-icons/png/pocket-id.png"
+
+[[sections.services]]
+name = "Jellyfin"
+url = "https://jellyfin.cute.haus"
+icon = "https://cdn.jsdelivr.net/gh/walkxcode/dashboard-icons/png/jellyfin.png"
+
+[[sections.services]]
+name = "Plex"
+url = "https://plex.cute.haus/"
+icon = "https://cdn.jsdelivr.net/gh/walkxcode/dashboard-icons/png/plex.png"
+
+[[sections.services]]
+name = "Ombi"
+url = "https://ombi.cute.haus/"
+icon = "https://cdn.jsdelivr.net/gh/walkxcode/dashboard-icons/png/ombi.png"
+
+[[sections.services]]
+name = "Audiobookshelf"
+url = "https://audiobookshelf.cute.haus/"
+icon = "https://cdn.jsdelivr.net/gh/walkxcode/dashboard-icons/png/audiobookshelf.png"
+
+[[sections.services]]
+name = "Immich"
+url = "https://immich.cute.haus/"
+icon = "https://cdn.jsdelivr.net/gh/walkxcode/dashboard-icons/png/immich.png"
+
+[[sections.services]]
+name = "Navidrome"
+url = "https://navidrome.cute.haus"
+icon = "https://cdn.jsdelivr.net/gh/walkxcode/dashboard-icons/png/navidrome.png"
+
+[[sections.services]]
+name = "Paperless"
+url = "https://paperless.cute.haus"
+icon = "https://cdn.jsdelivr.net/gh/walkxcode/dashboard-icons/png/paperless-ngx.png"
+
+[[sections.services]]
+name = "Forĝejo"
+url = "https://git.aly.codes/"
+icon = "https://cdn.jsdelivr.net/gh/walkxcode/dashboard-icons/png/forgejo.png"
+
+[[sections.services]]
+name = "Vaultwarden"
+url = "https://vault.cute.haus/"
+icon = "https://cdn.jsdelivr.net/gh/walkxcode/dashboard-icons/png/vaultwarden.png"
+
+[[sections.services]]
+name = "Uptime Kuma"
+url = "https://kuma.cute.haus/"
+icon = "https://cdn.jsdelivr.net/gh/walkxcode/dashboard-icons/png/uptime-kuma.png"
+
+[[sections]]
+type = "services"
+title = "Homelab"
+columns = 4
+
+[[sections.services]]
+name = "Sonarr"
+url = "https://sonarr.narwhal-snapper.ts.net/"
+icon = "https://cdn.jsdelivr.net/gh/walkxcode/dashboard-icons/png/sonarr.png"
+
+[[sections.services]]
+name = "Radarr"
+url = "https://radarr.narwhal-snapper.ts.net/"
+icon = "https://cdn.jsdelivr.net/gh/walkxcode/dashboard-icons/png/radarr.png"
+
+[[sections.services]]
+name = "Lidarr"
+url = "https://lidarr.narwhal-snapper.ts.net/"
+icon = "https://cdn.jsdelivr.net/gh/walkxcode/dashboard-icons/png/lidarr.png"
+
+[[sections.services]]
+name = "Prowlarr"
+url = "https://prowlarr.narwhal-snapper.ts.net/"
+icon = "https://cdn.jsdelivr.net/gh/walkxcode/dashboard-icons/png/prowlarr.png"
+
+[[sections.services]]
+name = "Bazarr"
+url = "https://bazarr.narwhal-snapper.ts.net/"
+icon = "https://cdn.jsdelivr.net/gh/walkxcode/dashboard-icons/png/bazarr.png"
+
+[[sections.services]]
+name = "Tautulli"
+url = "https://tautulli.narwhal-snapper.ts.net/"
+icon = "https://cdn.jsdelivr.net/gh/walkxcode/dashboard-icons/png/tautulli.png"
+
+[[sections.services]]
+name = "qBittorrent"
+url = "https://qbittorrent.narwhal-snapper.ts.net/"
+icon = "https://cdn.jsdelivr.net/gh/walkxcode/dashboard-icons/png/qbittorrent.png"
+
+[[sections.services]]
+name = "Grafana"
+url = "https://grafana.narwhal-snapper.ts.net/"
+icon = "https://cdn.jsdelivr.net/gh/walkxcode/dashboard-icons/png/grafana.png"

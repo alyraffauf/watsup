@@ -7,7 +7,7 @@ import type {
   WidgetType,
 } from "./types";
 
-const DEFAULT_CONFIG_PATH = new URL("../config/default.json", import.meta.url);
+const DEFAULT_CONFIG_PATH = new URL("../config/default.toml", import.meta.url);
 const VALID_COLUMNS = new Set([1, 2, 3, 4]);
 const VALID_WIDGET_TYPES = new Set<WidgetType>([
   "weather",
@@ -26,10 +26,10 @@ export async function loadDashboardConfig(): Promise<DashboardConfig> {
 
   let value: unknown;
   try {
-    value = await configFile.json();
+    value = Bun.TOML.parse(await configFile.text());
   } catch (error) {
     throw new Error(
-      `Dashboard config is not valid JSON: ${getErrorMessage(error)}`,
+      `Dashboard config is not valid TOML: ${getErrorMessage(error)}`,
     );
   }
 

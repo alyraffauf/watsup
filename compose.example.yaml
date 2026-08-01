@@ -4,11 +4,11 @@ services:
     ports:
       - "3000:3000"
     environment:
-      WATSUP_CONFIG_PATH: /run/configs/watsup.json
+      WATSUP_CONFIG_PATH: /run/configs/watsup.toml
     configs:
       - source: watsup-dashboard
-        target: /run/configs/watsup.json
+        target: /run/configs/watsup.toml
 
 configs:
   watsup-dashboard:
-    file: ./config/default.json
+    file: ./config/default.toml
