@@ -6,6 +6,81 @@ watsup is a convenient little dashboard and app launcher for [cute.haus](https:/
 
 In addition to some pleasantries (top 5 stories on Hacker News, weather, search), it shows every website and service I host, with a checkmark reflecting whether they're reachable or not.
 
+## configuration
+
+The dashboard is configured at runtime from JSON. The bundled
+[`config/default.json`](config/default.json) reproduces the default dashboard,
+but the container can use any mounted file by setting `WATSUP_CONFIG_PATH`:
+
+```yaml
+services:
+  watsup:
+    image: watsup
+    ports:
+      - "3000:3000"
+    environment:
+      WATSUP_CONFIG_PATH: /run/configs/watsup.json
+    configs:
+      - source: watsup-dashboard
+        target: /run/configs/watsup.json
+
+configs:
+  watsup-dashboard:
+    file: ./watsup.json
+```
+
+The config contains an ordered list of sections. Add as many `services` and
+`widgets` sections as needed:
+
+```json
+{
+  "title": "Home",
+  "sections": [
+    {
+      "type": "widgets",
+      "columns": 4,
+      "widgets": [
+        { "type": "weather" },
+        { "type": "search", "span": 3 }
+      ]
+    },
+    {
+      "type": "services",
+      "title": "Public services",
+      "columns": 3,
+      "refreshInterval": 20000,
+      "services": [
+        {
+          "name": "Example",
+          "url": "https://example.com",
+          "healthUrl": "https://example.com/health",
+          "goodStatuses": [200, 204]
+        }
+      ]
+    },
+    {
+      "type": "services",
+      "title": "Internal services",
+      "columns": 4,
+      "services": [
+        {
+          "name": "Grafana",
+          "url": "https://grafana.example.com",
+          "icon": "https://example.com/grafana.png"
+        }
+      ]
+    }
+  ]
+}
+```
+
+`columns` and widget `span` accept values from 1 through 4. Available widget
+types are `weather`, `search`, `lobsters`, and `hacker-news`. Service `icon`,
+`healthUrl`, `goodStatuses`, and section `refreshInterval` are optional. Without
+`goodStatuses`, any response below HTTP 500 is considered online. The config is
+read when `/api/config` is requested, so replacing the file and refreshing the
+page applies changes without rebuilding the image.
+
 ## build stuff
 
 To install dependencies:

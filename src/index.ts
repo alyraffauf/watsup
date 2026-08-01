@@ -1,5 +1,6 @@
 import { serve } from "bun";
 import index from "./index.html";
+import { loadDashboardConfig } from "./config";
 
 let hnCache: { stories: any[]; fetchedAt: number } | null = null;
 let lobstersCache: { stories: any[]; fetchedAt: number } | null = null;
@@ -70,9 +71,10 @@ async function findFavicon(siteOrigin: string): Promise<Favicon | null> {
     const iconLinkPattern = /<link[^>]+rel=["'][^"']*icon[^"']*["'][^>]*>/gi;
     for (const linkTag of homepage.match(iconLinkPattern) ?? []) {
       const hrefMatch = linkTag.match(/href=["']([^"']+)["']/i);
-      if (!hrefMatch) continue;
+      const hrefValue = hrefMatch?.[1];
+      if (!hrefValue) continue;
 
-      const href = decodeHtmlEntities(hrefMatch[1]);
+      const href = decodeHtmlEntities(hrefValue);
       const iconUrl = new URL(href, siteOrigin).toString();
       const icon = await fetchIcon(iconUrl);
       if (icon) return icon;
@@ -120,9 +122,24 @@ async function checkStatuses(
 
 const server = serve({
   hostname: "0.0.0.0",
-  port: 3000,
+  port: Number(process.env.PORT ?? 3000),
   routes: {
     "/": index,
+
+    "/api/config": {
+      async GET() {
+        try {
+          return Response.json(await loadDashboardConfig(), {
+            headers: { "Cache-Control": "no-store" },
+          });
+        } catch (error) {
+          const message =
+            error instanceof Error ? error.message : "Unknown config error";
+          console.error(message);
+          return new Response(message, { status: 500 });
+        }
+      },
+    },
 
     "/api/check": {
       async POST(req) {

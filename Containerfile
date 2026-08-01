@@ -4,5 +4,6 @@ COPY package.json bun.lock ./
 RUN bun install --frozen-lockfile
 COPY . .
 ENV NODE_ENV=production
+ENV WATSUP_CONFIG_PATH=/app/config/default.json
 EXPOSE 3000
 CMD ["bun", "run", "src/index.ts"]

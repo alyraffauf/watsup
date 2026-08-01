@@ -1,0 +1,14 @@
+services:
+  watsup:
+    build: .
+    ports:
+      - "3000:3000"
+    environment:
+      WATSUP_CONFIG_PATH: /run/configs/watsup.json
+    configs:
+      - source: watsup-dashboard
+        target: /run/configs/watsup.json
+
+configs:
+  watsup-dashboard:
+    file: ./config/default.json
