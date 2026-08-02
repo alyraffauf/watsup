@@ -99,7 +99,7 @@ async function checkStatuses(
       try {
         const response = await fetch(item.healthUrl ?? item.url, {
           method: "GET",
-          signal: AbortSignal.timeout(3000),
+          signal: AbortSignal.timeout(10000),
         });
         const status = response.status;
         const online =
